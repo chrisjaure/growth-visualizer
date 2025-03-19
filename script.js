@@ -1,3 +1,5 @@
+import milestones from './milestones.js'
+
 function rippleEffect(el) {
   const ripple = document.createElement('div');
   ripple.classList.add('ripple');
@@ -16,13 +18,15 @@ function rippleEffect(el) {
 
   ripple.addEventListener('animationend', () => {
     ripple.remove();
-  }, {});
+  });
 }
 
-function triggerClick(barContainer, barElement) {
+function triggerClick(index) {
+  const barContainer = document.querySelector('.bar-container');
+  const barElement = document.querySelector('.bar');
   const rect = barContainer.getBoundingClientRect();
-  const x = rect.left + 50; // Example: 50px from the left
-  const y = rect.top + 25; // Example: 25px from the top
+  const x = rect.left + ((rect.width / 14) * index) + rect.width / 14 * 4;
+  const y = rect.top + 10;
 
   const clickEvent = new MouseEvent('click', {
     bubbles: true,
@@ -34,18 +38,56 @@ function triggerClick(barContainer, barElement) {
   barElement.dispatchEvent(clickEvent);
 }
 
-export function initialize() {
+function renderMilestones(container) {
+  
+  const text = milestones.map((milestone, index) => {
+    const el = document.createElement('div');
+    el.className = 'milestone';
+    el.dataset.index = index;
+    const header = document.createElement('h2');
+    header.textContent = milestone.milestone;
+    el.appendChild(header);
+    const body = document.createElement('p');
+    body.textContent = milestone.focus;
+    el.appendChild(body);
+    return el;
+  });
+  text.forEach(child => {
+    container.appendChild(child);
+  });
+  const containerRect = container.getBoundingClientRect();
+  const topOffset = containerRect.top;
+  const height = containerRect.height;
+  const part = height / text.length;
+  let currentIndex = -1;
+  globalThis.addEventListener('scroll', () => {
+    const scrollY = globalThis.scrollY;
+    requestAnimationFrame(() => {
+      const newIndex = Math.floor((scrollY - topOffset) / part);
+      if (currentIndex !== newIndex && newIndex >= 0) {
+        if (newIndex - currentIndex < 0) {
+          container.classList.add('reverse');
+        }
+        else {
+          container.classList.remove('reverse');
+        }
+        currentIndex = newIndex;
+        triggerClick(newIndex);
+      }
+    });
+  });
+}
+
+function initialize() {
   const barContainer = document.querySelector('.bar-container');
   const actionElement = document.querySelector('.action');
   const barElement = document.querySelector('.bar');
   const comfortZone = document.querySelector('.comfort-zone');
   const growthZone = document.querySelector('.growth-zone');
+  const narrativeContainer = document.querySelector('.narrative');
   let newPosition = 0;
-  let isAnimating = false;
 
   barElement.addEventListener('click', (event) => {
-    if (isAnimating) return;
-    isAnimating = true;
     rippleEffect(barElement);
 
     barContainer.classList.remove('comfort-zone-clicked', 'growth-zone-clicked');
@@ -55,6 +97,8 @@ export function initialize() {
     newPosition = clickX; // No need for percentage
 
     barContainer.style.setProperty('--action-position', `${newPosition}px`);
+    actionElement.classList.remove('visible');
+    void actionElement.offsetWidth; // Force reflow
     actionElement.classList.add('visible');
     if (event.target === comfortZone) {
       barContainer.classList.add('comfort-zone-clicked');
@@ -62,28 +106,13 @@ export function initialize() {
     if (event.target === growthZone) {
       barContainer.classList.add('growth-zone-clicked');
     }
-    // Trigger the animation
-    void actionElement.offsetWidth; // Force reflow
-    barElement.classList.add('animate'); // Start
   });
 
   actionElement.addEventListener('animationend', () => {
     actionElement.classList.remove('visible');
   });
 
-  barElement.addEventListener('animationend', (event) => {
-    if (event.target !== barElement) return;
-    barElement.classList.remove('animate');
-    barContainer.style.setProperty(
-      '--start-position',
-      `calc(${newPosition}px - var(--comfort-percent) + 1px)`
-    );
-    isAnimating = false;
-  });
-
-  document.querySelector('#triggerClick').addEventListener('click', () => {
-    triggerClick(barContainer, barElement);
-  });
+  renderMilestones(narrativeContainer);
 }
 
 initialize();
