@@ -83,6 +83,18 @@ code {
   margin: 0 auto 20px;
 }
 
+.sticky-container {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  background: white;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
 .bar-container {
   --action-position: 20%;
   --comfort-percent: 90%;
@@ -91,8 +103,6 @@ code {
   overflow: hidden;
   position: relative;
   border-left: 1px solid var(--border-color);
-  position: sticky;
-  top: 10px;
 }
 
 .bar-container::after {
@@ -207,4 +217,45 @@ code {
 
 .reverse .milestone {
   text-decoration: line-through;
+}
+
+.avatar {
+  background: url("./sprite.jpeg");
+  width: 100px;
+  height: 100px;
+  background-size: 315px;
+}
+
+.avatar.anxious {
+  background-position: 0 -2px;
+  background-size: 310px;
+}
+
+.avatar.neutral {
+  background-position: -114px -106px;
+}
+
+.avatar.unhappy {
+  background-position: -2px -209px;
+  background-size: 313px;
+}
+
+.avatar.happy {
+  background-position: 100px 0;
+  background-size: 315px;
+}
+
+.avatar.happier {
+  background-position: 98px -106px;
+  background-size: 314px;
+}
+
+.avatar.embarrassed {
+  background-position: 101px 102px;
+  background-size: 315px;
+}
+
+.avatar.happiest {
+  background-position: 207px -213px;
+  background-size: 315px;
 }

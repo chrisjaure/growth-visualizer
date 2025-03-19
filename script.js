@@ -1,3 +1,4 @@
+import { Avatar } from "./avatar.js";
 import milestones from "./milestones.js";
 
 function rippleEffect(el) {
@@ -43,9 +44,11 @@ function renderMilestones(container) {
     const el = document.createElement("div");
     el.className = "milestone";
     el.dataset.index = index;
+
     const header = document.createElement("h2");
     header.textContent = milestone.milestone;
     el.appendChild(header);
+
     const body = document.createElement("p");
     body.textContent = milestone.focus;
     el.appendChild(body);
@@ -58,6 +61,7 @@ function renderMilestones(container) {
   const topOffset = containerRect.top;
   const height = containerRect.height;
   const part = height / text.length;
+
   let currentIndex = -1;
   globalThis.addEventListener("scroll", () => {
     const scrollY = globalThis.scrollY;
@@ -76,15 +80,13 @@ function renderMilestones(container) {
   });
 }
 
-function initialize() {
-  const barContainer = document.querySelector(".bar-container");
-  const actionElement = document.querySelector(".action");
-  const barElement = document.querySelector(".bar");
-  const comfortZone = document.querySelector(".comfort-zone");
-  const growthZone = document.querySelector(".growth-zone");
-  const narrativeContainer = document.querySelector(".narrative");
-  let newPosition = 0;
-
+function setHandlers({
+  barContainer,
+  actionElement,
+  barElement,
+  comfortZone,
+  avatar,
+}) {
   barElement.addEventListener("click", (event) => {
     rippleEffect(barElement);
 
@@ -94,25 +96,48 @@ function initialize() {
     );
 
     const rect = barContainer.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    newPosition = clickX; // No need for percentage
+    const comfortRect = comfortZone.getBoundingClientRect();
+    const newPosition = event.clientX - rect.left;
+    const confidenceLevel = newPosition / rect.width;
 
     barContainer.style.setProperty("--action-position", `${newPosition}px`);
     actionElement.classList.remove("visible");
     void actionElement.offsetWidth; // Force reflow
     actionElement.classList.add("visible");
-    if (event.target === comfortZone) {
+
+    avatar.setConfidenceLevel(confidenceLevel);
+    if (
+      event.clientX >= comfortRect.left &&
+      event.clientX <= comfortRect.left + comfortRect.width
+    ) {
       barContainer.classList.add("comfort-zone-clicked");
-    }
-    if (event.target === growthZone) {
+      avatar.flashMood("embarrassed");
+    } else {
       barContainer.classList.add("growth-zone-clicked");
+      avatar.flashAnxious();
     }
   });
 
   actionElement.addEventListener("animationend", () => {
     actionElement.classList.remove("visible");
   });
+}
 
+function initialize() {
+  const barContainer = document.querySelector(".bar-container");
+  const actionElement = document.querySelector(".action");
+  const barElement = document.querySelector(".bar");
+  const comfortZone = document.querySelector(".comfort-zone");
+  const narrativeContainer = document.querySelector(".narrative");
+  const avatar = new Avatar(document.querySelector(".avatar"));
+
+  setHandlers({
+    barContainer,
+    actionElement,
+    barElement,
+    comfortZone,
+    avatar,
+  });
   renderMilestones(narrativeContainer);
 }
 
