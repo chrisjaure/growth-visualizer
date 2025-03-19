@@ -19,6 +19,21 @@ function rippleEffect(el) {
   }, {});
 }
 
+function triggerClick(barContainer, barElement) {
+  const rect = barContainer.getBoundingClientRect();
+  const x = rect.left + 50; // Example: 50px from the left
+  const y = rect.top + 25; // Example: 25px from the top
+
+  const clickEvent = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+    clientX: x,
+    clientY: y
+  });
+  barElement.dispatchEvent(clickEvent);
+}
+
 export function initialize() {
   const barContainer = document.querySelector('.bar-container');
   const actionElement = document.querySelector('.action');
@@ -30,7 +45,6 @@ export function initialize() {
 
   barElement.addEventListener('click', (event) => {
     if (isAnimating) return;
-    
     isAnimating = true;
     rippleEffect(barElement);
 
@@ -48,7 +62,6 @@ export function initialize() {
     if (event.target === growthZone) {
       barContainer.classList.add('growth-zone-clicked');
     }
-    
     // Trigger the animation
     void actionElement.offsetWidth; // Force reflow
     barElement.classList.add('animate'); // Start
@@ -61,8 +74,15 @@ export function initialize() {
   barElement.addEventListener('animationend', (event) => {
     if (event.target !== barElement) return;
     barElement.classList.remove('animate');
-    barContainer.style.setProperty('--start-position', `calc(${newPosition}px - var(--comfort-percent) + 1px)`);
+    barContainer.style.setProperty(
+      '--start-position',
+      `calc(${newPosition}px - var(--comfort-percent) + 1px)`
+    );
     isAnimating = false;
+  });
+
+  document.querySelector('#triggerClick').addEventListener('click', () => {
+    triggerClick(barContainer, barElement);
   });
 }
 

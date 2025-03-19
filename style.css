@@ -42,7 +42,7 @@ p {
 .bar-container {
     --action-position: 50%;
     --start-position: -50%;
-    --comfort-percent: 88%;
+    --comfort-percent: 90%;
     width: var(--width);
     height: calc(var(--width) * 0.15);
     overflow: hidden;
