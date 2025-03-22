@@ -11,6 +11,7 @@ export class Avatar {
   ];
   mood = "unhappy";
   confidenceLevel = 0;
+  flashTimer = null;
 
   constructor(element) {
     this.element = element;
@@ -47,13 +48,15 @@ export class Avatar {
   flashMood(mood) {
     this.reset();
     this.element.classList.add(mood);
-    setTimeout(() => {
+    this.flashTimer = setTimeout(() => {
       this.reset();
       this.element.classList.add(this.mood);
     }, 1000);
   }
 
   reset() {
+    clearTimeout(this.flashTimer);
+    this.flashTimer = null;
     this.element.classList.remove(...this.moods);
   }
 }

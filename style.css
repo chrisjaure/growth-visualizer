@@ -5,8 +5,8 @@
   --width: 500px;
   --primary-color: #333;
   --secondary-color: #e74c3c; /* Red */
-  --comfort-color: #f9e79f; /* Light Yellow */
-  --growth-color: #a9dfbf; /* Light Green */
+  --comfort-color: hsl(49 93 67);
+  --growth-color: hsl(215 97 67);
   --text-color: #333;
   --bg-color: #f4f4f4;
   --border-color: #999;
@@ -20,7 +20,6 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  color: #333;
   padding: 20px;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -63,13 +62,6 @@ a:hover {
   text-decoration: underline;
 }
 
-code {
-  font-family: "Courier New", monospace;
-  background-color: #f0f0f0;
-  padding: 2px 5px;
-  border-radius: 3px;
-}
-
 /* Responsive typography */
 @media (max-width: 768px) {
   h1 {
@@ -102,7 +94,8 @@ code {
   height: calc(var(--width) * 0.15);
   overflow: hidden;
   position: relative;
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 20));;
+  border-radius: 5px;
 }
 
 .bar-container::after {
@@ -120,12 +113,11 @@ code {
 .bar {
   width: calc(100% + 105% - var(--comfort-percent));
   height: 100%;
-  border: solid var(--border-color);
-  border-width: 1px 1px 1px 0;
   display: flex;
   cursor: pointer;
   overflow: hidden;
   transition: transform 2s ease-in-out;
+  border-radius: 0 5px 5px 0;
 }
 
 .bar.animate {
@@ -137,26 +129,32 @@ code {
 .comfort-zone,
 .growth-zone {
   height: 100%;
-  transition: background-color 0.3s ease;
 }
 
 .comfort-zone {
   width: var(--comfort-percent);
-  background-color: var(--comfort-color);
-}
-
-.comfort-zone:hover {
-  background-color: #f7dc6f;
+  background: linear-gradient(
+    to right,
+    hsl(from var(--comfort-color) calc(h - 20) s l),
+    var(--comfort-color)
+  );
+  box-shadow: inset 1rem 0 1rem
+    hsl(from var(--comfort-color) calc(h - 20) s l / 0.75);
+  border: solid 1px hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 10));
+  border-width: 1px 0;
 }
 
 .growth-zone {
   width: calc(100% - var(--comfort-percent));
-  background-color: var(--growth-color);
-  border-left: 1px solid var(--border-color);
-}
-
-.growth-zone:hover {
-  background-color: #82e0aa;
+  border-left: 1px solid
+    hsl(from var(--growth-color) calc(h + 15) calc(s - 50) calc(l - 30) / 0.5);
+  background: linear-gradient(
+    to right,
+    hsl(from var(--growth-color) calc(h - 10) s l),
+    var(--growth-color)
+  );
+  box-shadow: inset -0.5rem 0rem 1rem
+    hsl(from var(--growth-color) calc(h + 15) calc(s - 50) calc(l - 30) / 0.5);
 }
 
 .action {
@@ -176,16 +174,16 @@ code {
 }
 
 .growth-zone-clicked .action {
-  background-color: #82e0aa;
+  background-color: var(--growth-color);
 }
 
 .comfort-zone-clicked .action {
-  background-color: #f7dc6f;
+  background-color: var(--comfort-color);
 }
 
 @keyframes fadeOut {
   from {
-    opacity: 1;
+    opacity: 0.75;
   }
   to {
     opacity: 0;

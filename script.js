@@ -27,7 +27,7 @@ function triggerClick(index) {
   const barElement = document.querySelector(".bar");
   const rect = barContainer.getBoundingClientRect();
   const x = rect.left + (rect.width / 14) * index + (rect.width / 14) * 4;
-  const y = rect.top + 10;
+  const y = rect.top + rect.height / 2;
 
   const clickEvent = new MouseEvent("click", {
     bubbles: true,
@@ -58,7 +58,7 @@ function renderMilestones(container) {
     container.appendChild(child);
   });
   const containerRect = container.getBoundingClientRect();
-  const topOffset = containerRect.top;
+  const topOffset = containerRect.top + globalThis.scrollY;
   const height = containerRect.height;
   const part = height / text.length;
 
@@ -67,8 +67,8 @@ function renderMilestones(container) {
     const scrollY = globalThis.scrollY;
     requestAnimationFrame(() => {
       const newIndex = Math.floor((scrollY - topOffset) / part);
-      if (currentIndex !== newIndex && newIndex >= 0) {
-        if (newIndex - currentIndex < 0) {
+      if (currentIndex !== newIndex && newIndex >= -1) {
+        if (newIndex < currentIndex) {
           container.classList.add("reverse");
         } else {
           container.classList.remove("reverse");
