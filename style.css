@@ -85,6 +85,7 @@ a:hover {
   background: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  z-index: 100;
 }
 
 .bar-container {
@@ -94,7 +95,8 @@ a:hover {
   height: calc(var(--width) * 0.15);
   overflow: hidden;
   position: relative;
-  border-left: 1px solid hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 20));;
+  border-left: 1px solid
+    hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 20));
   border-radius: 5px;
 }
 
@@ -140,7 +142,8 @@ a:hover {
   );
   box-shadow: inset 1rem 0 1rem
     hsl(from var(--comfort-color) calc(h - 20) s l / 0.75);
-  border: solid 1px hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 10));
+  border: solid 1px
+    hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 10));
   border-width: 1px 0;
 }
 
@@ -207,14 +210,36 @@ a:hover {
 }
 
 .milestone {
-  height: 99vh;
+  height: 98vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border: solid 5px rgb(0 0 0 / 0.5);
+  padding: 0 2rem;
+  margin: 2rem 0;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #fff, rgb(0 0 0 / 0.1));
 }
 
-.reverse .milestone {
+.milestone.complete {
+  border-color: var(--growth-color);
+}
+
+.milestone.complete h2::before {
+  content: '✅';
+}
+
+.reverse .milestone.complete {
+  border-color: var(--border-color);
+}
+
+.reverse .milestone:not(.complete) {
   text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.reverse .milestone:not(.complete) h2::before {
+  content: '❌';
 }
 
 .avatar {

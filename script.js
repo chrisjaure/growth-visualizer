@@ -70,8 +70,10 @@ function renderMilestones(container) {
       if (currentIndex !== newIndex && newIndex >= -1) {
         if (newIndex < currentIndex) {
           container.classList.add("reverse");
+          container.children[currentIndex].classList.remove('complete');
         } else {
           container.classList.remove("reverse");
+          container.children[newIndex].classList.add('complete');
         }
         currentIndex = newIndex;
         triggerClick(newIndex);
