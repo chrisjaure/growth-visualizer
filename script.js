@@ -1,5 +1,5 @@
 import { Avatar } from "./avatar.js";
-import milestones from "./milestones.js";
+import skill from "./skills/public-speaking.js";
 
 function rippleEffect(el) {
   const ripple = document.createElement("div");
@@ -39,47 +39,96 @@ function triggerClick(index) {
   barElement.dispatchEvent(clickEvent);
 }
 
-function renderMilestones(container) {
-  const text = milestones.map((milestone, index) => {
-    const el = document.createElement("div");
-    el.className = "milestone";
-    el.dataset.index = index;
+function getSkillNode({ skill, onCancel, onProceed }) {
+  const el = document.createElement("div");
+  el.className = "milestone";
 
-    const header = document.createElement("h2");
-    header.textContent = milestone.milestone;
-    el.appendChild(header);
+  const header = document.createElement("h3");
+  header.textContent = skill.milestone;
+  el.appendChild(header);
 
-    const body = document.createElement("p");
-    body.textContent = milestone.focus;
-    el.appendChild(body);
+  const body = document.createElement("p");
+  body.textContent = skill.focus;
+  el.appendChild(body);
+
+  const actionsContainer = document.createElement("div");
+  actionsContainer.className = "actions";
+
+  const cancelButton = document.createElement("button");
+  cancelButton.className = "cancel-button";
+  cancelButton.textContent = "Don't do it... stay in your comfort zone.";
+  cancelButton.addEventListener("click", onCancel);
+  actionsContainer.appendChild(cancelButton);
+
+  const proceedButton = document.createElement("button");
+  proceedButton.className = "proceed-button";
+  proceedButton.textContent = "Do it! Break outside your comfort zone!";
+  proceedButton.addEventListener("click", (event) => onProceed(el, event));
+  actionsContainer.appendChild(proceedButton);
+
+  el.appendChild(actionsContainer);
+
+  return el;
+}
+
+function renderSkillTree(container) {
+  const description = document.createElement("h2");
+  description.className = "skill-description";
+  description.textContent = skill.description;
+  container.appendChild(description);
+
+  const goal = document.createElement("div");
+  goal.className = "skill-goal";
+  goal.textContent = skill.milestones.at(-1).milestone;
+  container.appendChild(goal);
+
+  const nodeContainer = document.createElement("div");
+  nodeContainer.className = "skill-tree";
+
+  const skillNodes = skill.milestones.map((skill, index) => {
+    const el = getSkillNode({
+      skill,
+      onCancel: () => {
+        el.classList.add("rejected");
+        triggerClick(index - 1);
+      },
+      onProceed: (el) => {
+        el.classList.remove("rejected");
+        el.classList.add("complete");
+        el.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
+        triggerClick(index);
+      },
+    });
     return el;
   });
-  text.forEach((child) => {
-    container.appendChild(child);
+  skillNodes.forEach((child) => {
+    nodeContainer.appendChild(child);
   });
-  const containerRect = container.getBoundingClientRect();
-  const topOffset = containerRect.top + globalThis.scrollY;
-  const height = containerRect.height;
-  const part = height / text.length;
+  container.appendChild(nodeContainer);
 
-  let currentIndex = -1;
-  globalThis.addEventListener("scroll", () => {
-    const scrollY = globalThis.scrollY;
-    requestAnimationFrame(() => {
-      const newIndex = Math.floor((scrollY - topOffset) / part);
-      if (currentIndex !== newIndex && newIndex >= -1) {
-        if (newIndex < currentIndex) {
-          container.classList.add("reverse");
-          container.children[currentIndex].classList.remove('complete');
-        } else {
-          container.classList.remove("reverse");
-          container.children[newIndex].classList.add('complete');
-        }
-        currentIndex = newIndex;
-        triggerClick(newIndex);
-      }
-    });
-  });
+  // const containerRect = container.getBoundingClientRect();
+  // const topOffset = containerRect.top + globalThis.scrollY;
+  // const height = containerRect.height;
+  // const part = height / text.length;
+
+  // let currentIndex = -1;
+  // globalThis.addEventListener("scroll", () => {
+  //   const scrollY = globalThis.scrollY;
+  //   requestAnimationFrame(() => {
+  //     const newIndex = Math.floor((scrollY - topOffset + 200 ) / part);
+  //     if (currentIndex !== newIndex && newIndex >= -1) {
+  //       if (newIndex < currentIndex) {
+  //         container.classList.add("reverse");
+  //         container.children[currentIndex].classList.remove('complete');
+  //       } else {
+  //         container.classList.remove("reverse");
+  //         container.children[newIndex]?.classList.add('complete');
+  //       }
+  //       currentIndex = newIndex;
+  //       triggerClick(newIndex);
+  //     }
+  //   });
+  // });
 }
 
 function setHandlers({
@@ -140,7 +189,7 @@ function initialize() {
     comfortZone,
     avatar,
   });
-  renderMilestones(narrativeContainer);
+  renderSkillTree(narrativeContainer);
 }
 
 initialize();
