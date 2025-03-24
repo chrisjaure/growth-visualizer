@@ -1,5 +1,24 @@
 import { Avatar } from "./avatar.js";
-import skill from "./skills/public-speaking.js";
+import publicSpeakingSkillSet from "./skills/public-speaking.js";
+import exerciseSkillSet from "./skills/exercise.js";
+import { rejections, confirmations } from "./answers.js";
+
+function shuffleArray(originalArray) {
+  // Create a copy of the original array to avoid modifying it directly
+  const newArray = [...originalArray];
+
+  // Iterate through the array from the last element to the first
+  for (let i = newArray.length - 1; i > 0; i--) {
+    // Generate a random index between 0 and i (inclusive)
+    const j = Math.floor(Math.random() * (i + 1));
+
+    // Swap the elements at indices i and j
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+
+  // Return the shuffled copy
+  return newArray;
+}
 
 function createElementWithProps(tagName, props = {}) {
   const element = document.createElement(tagName);
@@ -64,7 +83,7 @@ function triggerClick(index) {
   barElement.dispatchEvent(clickEvent);
 }
 
-function getSkillNode({ skill, onCancel, onProceed }) {
+function getSkillNode({ skill, onCancel, onProceed, cancelText, confirmText }) {
   return createElementWithProps("div", {
     className: "milestone",
     children: [
@@ -73,7 +92,7 @@ function getSkillNode({ skill, onCancel, onProceed }) {
       }),
 
       createElementWithProps("p", {
-        textContent: skill.focus,
+        textContent: skill.reason,
       }),
 
       createElementWithProps("div", {
@@ -82,13 +101,13 @@ function getSkillNode({ skill, onCancel, onProceed }) {
         children: [
           createElementWithProps("button", {
             className: "cancel-button",
-            textContent: "Don't do it... it's too scary.",
+            textContent: `Don't do it... ${cancelText}`,
             onClick: onCancel,
           }),
 
           createElementWithProps("button", {
             className: "proceed-button",
-            textContent: "Do it! Think of your goal!",
+            textContent: `Do it! ${confirmText}`,
             onClick: (event) =>
               onProceed(event.target.closest(".milestone"), event),
           }),
@@ -98,17 +117,25 @@ function getSkillNode({ skill, onCancel, onProceed }) {
   });
 }
 
-function renderSkillTree(container) {
+function renderSkillTree({
+  container,
+  cancelAnswers,
+  approveAnswers,
+  skillSet,
+}) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
   container.appendChild(
     createElementWithProps("h2", {
       className: "skill-description speech-bubble",
-      textContent: `I want to improve in ${skill.description}.`,
+      textContent: `I want to ${skillSet.description}.`,
     }),
   );
 
   container.appendChild(
     createElementWithProps("p", {
-      textContent: `Alyssa's goal is: ⭐ ${skill.milestones.at(-1).milestone} ⭐`,
+      textContent: `Alyssa's goal is: ⭐ ${skillSet.milestones.at(-1).milestone} ⭐`,
     }),
   );
   container.appendChild(
@@ -120,9 +147,11 @@ function renderSkillTree(container) {
   container.appendChild(
     createElementWithProps("div", {
       className: "skill-tree",
-      children: skill.milestones.map((skill, index) => {
+      children: skillSet.milestones.map((skill, index) => {
         const el = getSkillNode({
           skill,
+          cancelText: cancelAnswers[index],
+          confirmText: approveAnswers[index],
           onCancel: () => {
             el.classList.add("rejected");
             triggerClick(index - 1);
@@ -190,13 +219,30 @@ function setHandlers({
   });
 }
 
+function initializeSkillSelect({ select, options, onChange }) {
+  const optionElements = options.map((option, index) =>
+    createElementWithProps("option", {
+      textContent: option,
+      value: index,
+    }),
+  );
+
+  optionElements.forEach((option) => {
+    select.appendChild(option);
+  });
+
+  select.addEventListener("change", onChange);
+}
+
 function initialize() {
   const barContainer = document.querySelector(".bar-container");
   const actionElement = document.querySelector(".action");
   const barElement = document.querySelector(".bar");
   const comfortZone = document.querySelector(".comfort-zone");
   const narrativeContainer = document.querySelector(".narrative");
+  const selectElement = document.querySelector("#select-skillset");
   const avatar = new Avatar(document.querySelector(".avatar"));
+  const skillSets = [publicSpeakingSkillSet, exerciseSkillSet];
 
   setHandlers({
     barContainer,
@@ -204,8 +250,30 @@ function initialize() {
     barElement,
     comfortZone,
     avatar,
+    selectElement,
   });
-  renderSkillTree(narrativeContainer);
+  renderSkillTree({
+    container: narrativeContainer,
+    cancelAnswers: shuffleArray(rejections),
+    approveAnswers: shuffleArray(confirmations),
+    skillSet: skillSets[0],
+  });
+  initializeSkillSelect({
+    select: selectElement,
+    options: skillSets.map((option) => option.description),
+    onChange: () => {
+      document.body.classList.remove("complete");
+      avatar.setConfidenceLevel(0);
+      barContainer.style.setProperty("--action-position", "20%");
+      narrativeContainer.scrollIntoView();
+      renderSkillTree({
+        container: narrativeContainer,
+        cancelAnswers: shuffleArray(rejections),
+        approveAnswers: shuffleArray(confirmations),
+        skillSet: skillSets[Number(selectElement.value)],
+      });
+    },
+  });
 }
 
 initialize();

@@ -207,6 +207,10 @@ a:hover {
   }
 }
 
+.narrative {
+  scroll-margin-top: calc(var(--bar-height) + 6rem);
+}
+
 .milestone {
   min-height: 16rem;
   display: flex;
@@ -395,4 +399,3 @@ a:hover {
 .complete .end {
   display: block;
 }
-

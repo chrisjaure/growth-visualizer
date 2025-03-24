@@ -20,7 +20,7 @@ export class Avatar {
 
   setMood(mood) {
     this.mood = mood;
-    this.reset();
+    this.resetClasses();
     this.element.classList.add(mood);
   }
 
@@ -46,15 +46,15 @@ export class Avatar {
   }
 
   flashMood(mood) {
-    this.reset();
+    this.resetClasses();
     this.element.classList.add(mood);
     this.flashTimer = setTimeout(() => {
-      this.reset();
+      this.resetClasses();
       this.element.classList.add(this.mood);
     }, 1000);
   }
 
-  reset() {
+  resetClasses() {
     clearTimeout(this.flashTimer);
     this.flashTimer = null;
     this.element.classList.remove(...this.moods);

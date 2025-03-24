@@ -1,57 +1,55 @@
 export default {
-  description: "public speaking",
+  description: "be comfortable with public speaking",
   milestones: [
     {
       milestone: "Practice in Front of a Mirror",
-      focus: "Overcoming initial self-consciousness",
-      comfortZone: "Very small, just personal reflection",
+      reason:
+        "Initial step to build comfort with one's own voice and presence.",
     },
     {
       milestone: "Record and Review a Short Speech",
-      focus: "Identifying areas for improvement",
-      comfortZone: "Slightly larger, dealing with self-critique",
+      reason:
+        "Allows for self-assessment and identification of areas for improvement.",
     },
     {
       milestone: "Present to a Trusted Friend or Family Member",
-      focus: "Speaking to a single person",
-      comfortZone: "Expanding to a known person",
+      reason:
+        "Gaining experience speaking to a supportive and familiar audience.",
     },
     {
-      milestone: "Join a Local Toastmasters Group (or similar)",
-      focus: "Speaking in a structured, supportive environment",
-      comfortZone: "Expanding to a small, unfamiliar group",
+      milestone: "Join a Local Toastmasters Group",
+      reason:
+        "Practicing in a structured environment with constructive feedback.",
     },
     {
       milestone:
         "Give a Short Presentation at a Small Meeting (e.g., work team, club)",
-      focus: "Speaking to a familiar but professional audience",
-      comfortZone: "Expanding to a professional small group",
+      reason: "Speaking in a professional setting with a known audience.",
     },
     {
       milestone: "Lead a Workshop or Training Session",
-      focus: "Speaking and teaching a subject to a group",
-      comfortZone: "Expanding to teaching",
+      reason:
+        "Developing skills in guiding and instructing a group through speaking.",
     },
     {
-      milestone: "Present at a Conference or Larger Event (small audience)",
-      focus: "Speaking to a larger, less familiar audience",
-      comfortZone: "Expanding to a larger unknown group",
+      milestone: "Present to a Small Audience at a Conference or Larger Event",
+      reason:
+        "Speaking to a larger, less familiar audience, increasing exposure.",
     },
     {
       milestone: "Give a Webinar or Online Presentation",
-      focus: "Speaking to a virtual audience",
-      comfortZone: "Expanding to online audience",
+      reason: "Adapting to speaking in a virtual environment.",
     },
     {
       milestone: "Deliver a Keynote Speech at a Moderate-Sized Event",
-      focus: "Speaking as an authority to a substantial audience",
-      comfortZone: "Expanding to a larger, professional audience",
+      reason:
+        "Presenting as a more established speaker to a significant audience.",
     },
     {
       milestone:
         "Regularly Speak at Large Events or Become a Sought-After Speaker",
-      focus: "Achieving mastery and consistent high-level performance",
-      comfortZone: "Very large, encompassing extensive public speaking",
+      reason:
+        "Achieving mastery and recognition as a public speaking professional.",
     },
   ],
 };

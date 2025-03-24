@@ -1,0 +1,40 @@
+export const rejections = [
+  "You can do it later.",
+  "Now isn't the right time.",
+  "You're not prepared.",
+  "What if you fail?",
+  "People will judge you.",
+  "You don't have the right skills.",
+  "It's not that important.",
+  "It's too scary.",
+  "Where would you even start?",
+  "It's not worth the effort.",
+  "Someone else can do it better.",
+  "It's too hard.",
+  "You'll just mess up.",
+  "You don't like doing things like this.",
+  "It's too risky.",
+  "You might look silly.",
+  "It'll be awkward.",
+  "You don't have enough support.",
+  "I don't think you can do it.",
+  "Wait until you're ready."
+];
+
+export const confirmations = [
+  "You'll gain experience.",
+  "Think of your goal!",
+  "You're capable of trying new things!",
+  "It will be worth the effort.",
+  "You've faced challenges before.",
+  "It won't be perfect, but you can still try your best!",
+  "You can ask for help if you need it.",
+  "This is one small step.",
+  "Try it and see what happens.",
+  "You can adapt!",
+  "Training to improve your skills!",
+  "This could open up new opportunities.",
+  "Don't get stuck here!",
+  "No one else can realize your potential.",
+  "The discomfort is temporary."
+];
