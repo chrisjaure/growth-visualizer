@@ -1,6 +1,26 @@
 import { Avatar } from "./avatar.js";
 import skill from "./skills/public-speaking.js";
 
+function createElementWithProps(tagName, props = {}) {
+  const element = document.createElement(tagName);
+  for (const key in props) {
+    if (Object.hasOwn(props, key)) {
+      if (key === "style") {
+        Object.assign(element.style, props[key]);
+      } else if (key === "textContent") {
+        element.textContent = props[key];
+      } else if (key === "innerHTML") {
+        element.innerHTML = props[key];
+      } else if (key === "children") {
+        props[key].forEach((child) => element.appendChild(child));
+      } else {
+        element[key] = props[key]; // For other properties like 'className', 'id', etc.
+      }
+    }
+  }
+  return element;
+}
+
 function rippleEffect(el) {
   const ripple = document.createElement("div");
   ripple.classList.add("ripple");
@@ -74,14 +94,20 @@ function getSkillNode({ skill, onCancel, onProceed }) {
 
 function renderSkillTree(container) {
   const description = document.createElement("h2");
-  description.className = "skill-description";
-  description.textContent = skill.description;
+  description.className = "skill-description speech-bubble";
+  description.textContent = `I want to improve in ${skill.description}.`;
   container.appendChild(description);
 
-  const goal = document.createElement("div");
-  goal.className = "skill-goal";
-  goal.textContent = skill.milestones.at(-1).milestone;
-  container.appendChild(goal);
+  container.appendChild(
+    createElementWithProps("p", {
+      textContent: `Alyssa's goal is: ⭐ ${skill.milestones.at(-1).milestone} ⭐`,
+    }),
+  );
+  container.appendChild(
+    createElementWithProps("p", {
+      textContent: `Let's help Alyssa get there! Encourage her to do uncomfortable things to reach her goal. As you do, you will see her comfort zone growing!`,
+    }),
+  );
 
   const nodeContainer = document.createElement("div");
   nodeContainer.className = "skill-tree";
@@ -97,6 +123,13 @@ function renderSkillTree(container) {
         el.classList.remove("rejected");
         el.classList.add("complete");
         el.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
+        if (index === 9) {
+          document.body.classList.add("complete");
+          if (confetti) {
+            // external lib
+            confetti();
+          }
+        }
         triggerClick(index);
       },
     });

@@ -1,5 +1,5 @@
 export default {
-  description: "Improve in public speaking",
+  description: "public speaking",
   milestones: [
     {
       milestone: "Practice in Front of a Mirror",

@@ -358,3 +358,42 @@ a:hover {
   background-position: 207px -213px;
   background-size: 315px;
 }
+
+.speech-bubble {
+  --left: 50px;
+  --border-width: 10px;
+  --border-color: #ccc;
+  --background-color: #f0f0f0;
+  position: relative;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--border-width) * -2);
+  left: var(--left);
+  border: var(--border-width) solid transparent;
+  border-bottom-color: var(--border-color);
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--border-width) * -2 + 1px);
+  left: var(--left);
+  border: var(--border-width) solid transparent;
+  border-bottom-color: var(--background-color);
+}
+
+.end {
+  display: none;
+}
+
+.complete .end {
+  display: block;
+}
+
