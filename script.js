@@ -106,30 +106,6 @@ function renderSkillTree(container) {
     nodeContainer.appendChild(child);
   });
   container.appendChild(nodeContainer);
-
-  // const containerRect = container.getBoundingClientRect();
-  // const topOffset = containerRect.top + globalThis.scrollY;
-  // const height = containerRect.height;
-  // const part = height / text.length;
-
-  // let currentIndex = -1;
-  // globalThis.addEventListener("scroll", () => {
-  //   const scrollY = globalThis.scrollY;
-  //   requestAnimationFrame(() => {
-  //     const newIndex = Math.floor((scrollY - topOffset + 200 ) / part);
-  //     if (currentIndex !== newIndex && newIndex >= -1) {
-  //       if (newIndex < currentIndex) {
-  //         container.classList.add("reverse");
-  //         container.children[currentIndex].classList.remove('complete');
-  //       } else {
-  //         container.classList.remove("reverse");
-  //         container.children[newIndex]?.classList.add('complete');
-  //       }
-  //       currentIndex = newIndex;
-  //       triggerClick(newIndex);
-  //     }
-  //   });
-  // });
 }
 
 function setHandlers({
@@ -163,7 +139,7 @@ function setHandlers({
       event.clientX <= comfortRect.left + comfortRect.width
     ) {
       barContainer.classList.add("comfort-zone-clicked");
-      avatar.flashMood("embarrassed");
+      avatar.setMood("embarrassed");
     } else {
       barContainer.classList.add("growth-zone-clicked");
       avatar.flashAnxious();

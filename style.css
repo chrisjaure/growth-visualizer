@@ -254,6 +254,11 @@ a:hover {
 
 .milestone.complete {
   border-color: var(--growth-color);
+  background: linear-gradient(
+    to bottom,
+    #fff,
+    hsl(from var(--growth-color) h s calc(l + 25))
+  );
 }
 
 .milestone.complete h3::before {
@@ -353,4 +358,3 @@ a:hover {
   background-position: 207px -213px;
   background-size: 315px;
 }
-
