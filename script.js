@@ -13,6 +13,8 @@ function createElementWithProps(tagName, props = {}) {
         element.innerHTML = props[key];
       } else if (key === "children") {
         props[key].forEach((child) => element.appendChild(child));
+      } else if (key.startsWith("on")) {
+        element.addEventListener(key.substring(2).toLowerCase(), props[key]);
       } else {
         element[key] = props[key]; // For other properties like 'className', 'id', etc.
       }
@@ -22,18 +24,20 @@ function createElementWithProps(tagName, props = {}) {
 }
 
 function rippleEffect(el) {
-  const ripple = document.createElement("div");
-  ripple.classList.add("ripple");
-
   const size = Math.max(el.offsetWidth, el.offsetHeight);
-  ripple.style.width = ripple.style.height = `${size}px`;
-
   const rect = el.getBoundingClientRect();
   const x = event.clientX - rect.left - size / 2;
   const y = event.clientY - rect.top - size / 2;
 
-  ripple.style.left = `${x}px`;
-  ripple.style.top = `${y}px`;
+  const ripple = createElementWithProps("div", {
+    className: "ripple",
+    style: {
+      width: `${size}px`,
+      height: `${size}px`,
+      left: `${x}px`,
+      top: `${y}px`,
+    },
+  });
 
   el.appendChild(ripple);
 
@@ -61,42 +65,45 @@ function triggerClick(index) {
 }
 
 function getSkillNode({ skill, onCancel, onProceed }) {
-  const el = document.createElement("div");
-  el.className = "milestone";
+  return createElementWithProps("div", {
+    className: "milestone",
+    children: [
+      createElementWithProps("h3", {
+        textContent: skill.milestone,
+      }),
 
-  const header = document.createElement("h3");
-  header.textContent = skill.milestone;
-  el.appendChild(header);
+      createElementWithProps("p", {
+        textContent: skill.focus,
+      }),
 
-  const body = document.createElement("p");
-  body.textContent = skill.focus;
-  el.appendChild(body);
+      createElementWithProps("div", {
+        className: "actions",
 
-  const actionsContainer = document.createElement("div");
-  actionsContainer.className = "actions";
+        children: [
+          createElementWithProps("button", {
+            className: "cancel-button",
+            textContent: "Don't do it... it's too scary.",
+            onClick: onCancel,
+          }),
 
-  const cancelButton = document.createElement("button");
-  cancelButton.className = "cancel-button";
-  cancelButton.textContent = "Don't do it... stay in your comfort zone.";
-  cancelButton.addEventListener("click", onCancel);
-  actionsContainer.appendChild(cancelButton);
-
-  const proceedButton = document.createElement("button");
-  proceedButton.className = "proceed-button";
-  proceedButton.textContent = "Do it! Break outside your comfort zone!";
-  proceedButton.addEventListener("click", (event) => onProceed(el, event));
-  actionsContainer.appendChild(proceedButton);
-
-  el.appendChild(actionsContainer);
-
-  return el;
+          createElementWithProps("button", {
+            className: "proceed-button",
+            textContent: "Do it! Break outside your comfort zone!",
+            onClick: (event) => onProceed(el, event),
+          }),
+        ],
+      }),
+    ],
+  });
 }
 
 function renderSkillTree(container) {
-  const description = document.createElement("h2");
-  description.className = "skill-description speech-bubble";
-  description.textContent = `I want to improve in ${skill.description}.`;
-  container.appendChild(description);
+  container.appendChild(
+    createElementWithProps("h2", {
+      className: "skill-description speech-bubble",
+      textContent: `I want to improve in ${skill.description}.`,
+    }),
+  );
 
   container.appendChild(
     createElementWithProps("p", {
@@ -109,36 +116,34 @@ function renderSkillTree(container) {
     }),
   );
 
-  const nodeContainer = document.createElement("div");
-  nodeContainer.className = "skill-tree";
-
-  const skillNodes = skill.milestones.map((skill, index) => {
-    const el = getSkillNode({
-      skill,
-      onCancel: () => {
-        el.classList.add("rejected");
-        triggerClick(index - 1);
-      },
-      onProceed: (el) => {
-        el.classList.remove("rejected");
-        el.classList.add("complete");
-        el.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
-        if (index === 9) {
-          document.body.classList.add("complete");
-          if (confetti) {
-            // external lib
-            confetti();
-          }
-        }
-        triggerClick(index);
-      },
-    });
-    return el;
-  });
-  skillNodes.forEach((child) => {
-    nodeContainer.appendChild(child);
-  });
-  container.appendChild(nodeContainer);
+  container.appendChild(
+    createElementWithProps("div", {
+      className: "skill-tree",
+      children: skill.milestones.map((skill, index) => {
+        const el = getSkillNode({
+          skill,
+          onCancel: () => {
+            el.classList.add("rejected");
+            triggerClick(index - 1);
+          },
+          onProceed: (el) => {
+            el.classList.remove("rejected");
+            el.classList.add("complete");
+            el.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
+            if (index === 9) {
+              document.body.classList.add("complete");
+              if (confetti) {
+                // external lib
+                confetti();
+              }
+            }
+            triggerClick(index);
+          },
+        });
+        return el;
+      }),
+    }),
+  );
 }
 
 function setHandlers({
