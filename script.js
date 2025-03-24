@@ -88,8 +88,9 @@ function getSkillNode({ skill, onCancel, onProceed }) {
 
           createElementWithProps("button", {
             className: "proceed-button",
-            textContent: "Do it! Break outside your comfort zone!",
-            onClick: (event) => onProceed(el, event),
+            textContent: "Do it! Think of your goal!",
+            onClick: (event) =>
+              onProceed(event.target.closest(".milestone"), event),
           }),
         ],
       }),
