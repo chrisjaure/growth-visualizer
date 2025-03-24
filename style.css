@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap");
 
 :root {
-  --width: 500px;
+  --bar-height: 60px;
   --primary-color: #333;
   --secondary-color: #e74c3c; /* Red */
   --comfort-color: hsl(49 93 67);
@@ -24,7 +24,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  padding: 20px;
+  padding: 1rem;
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: auto;
@@ -41,16 +41,16 @@ h3 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.5em;
   margin-bottom: 20px;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.5em;
 }
 
 p {
@@ -82,20 +82,21 @@ a:hover {
   padding: 1rem;
   background: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   z-index: 100;
+  gap: 10px;
 }
 
 .bar-container {
   --action-position: 20%;
   --comfort-percent: 90%;
-  width: var(--width);
-  height: calc(var(--width) * 0.15);
+  height: var(--bar-height);
   overflow: hidden;
   position: relative;
   border-left: 1px solid
     hsl(from var(--comfort-color) calc(h - 20) calc(s - 20) calc(l - 20));
   border-radius: 5px;
+  flex-grow: 1;
 }
 
 .bar-container::after {
@@ -219,7 +220,7 @@ a:hover {
   background: linear-gradient(to bottom, #fff, rgb(0 0 0 / 0.1));
   position: relative;
   opacity: 0.5;
-  scroll-margin-top: calc(var(--width) * 0.15 + 4rem);
+  scroll-margin-top: calc(var(--bar-height) + 4rem);
 }
 
 .milestone + .milestone::after {
@@ -351,12 +352,5 @@ a:hover {
 .avatar.happiest {
   background-position: 207px -213px;
   background-size: 315px;
-}
-
-@media (max-width: 425px) {
-  body {
-    max-width: 100%;
-    padding: 1rem;
-  }
 }
 
