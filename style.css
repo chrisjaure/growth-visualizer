@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
@@ -63,16 +67,9 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Responsive typography */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-
 .svg-diagram {
   display: block;
-  width: var(--width);
+  width: 100%;
   margin: 0 auto 20px;
 }
 
@@ -167,7 +164,7 @@ a:hover {
   width: 6px;
   position: absolute;
   background-color: var(--secondary-color);
-  left: var(--action-position);
+  left: calc(var(--action-position) - 6px);
   opacity: 0;
   pointer-events: none;
   border-radius: 3px;
@@ -216,23 +213,24 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   border: solid 5px rgb(0 0 0 / 0.5);
-  padding: 0 2rem;
+  padding: 2rem;
   margin: 2rem 0;
   border-radius: 5px;
   background: linear-gradient(to bottom, #fff, rgb(0 0 0 / 0.1));
   position: relative;
   opacity: 0.5;
+  scroll-margin-top: calc(var(--width) * 0.15 + 4rem);
 }
 
 .milestone + .milestone::after {
   content: "";
   position: absolute;
-  top: calc(-2rem - 5px);
+  top: calc(-2rem - 4.5px);
   left: 50%;
   transform: translateX(-50%);
   width: 5px;
   background-color: #ccc;
-  height: 2rem;
+  height: calc(2rem);
 }
 
 .milestone.rejected + .milestone::after {
@@ -354,3 +352,11 @@ a:hover {
   background-position: 207px -213px;
   background-size: 315px;
 }
+
+@media (max-width: 425px) {
+  body {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+

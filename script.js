@@ -26,13 +26,14 @@ function triggerClick(index) {
   const barContainer = document.querySelector(".bar-container");
   const barElement = document.querySelector(".bar");
   const rect = barContainer.getBoundingClientRect();
-  const x = rect.left + (rect.width / 14) * index + (rect.width / 14) * 4;
+  const parts = rect.width / 14;
+  const x = rect.left + parts * index + parts * 4;
   const y = rect.top + rect.height / 2;
 
   const clickEvent = new MouseEvent("click", {
     bubbles: true,
     cancelable: true,
-    view: window,
+    view: globalThis,
     clientX: x,
     clientY: y,
   });
