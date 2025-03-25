@@ -1,51 +1,46 @@
 export default {
-  description: "exercise more",
+  description: "get more exercise",
   milestones: [
     {
-      milestone: "Commit to 10 Minutes of Movement Daily",
-      reason: "Establishing a baseline habit and overcoming initial inertia.",
+      milestone: "Move for 10 minutes every day",
+      reason: "To start a good habit and get moving.",
     },
     {
-      milestone: "Identify 3 Types of Activities You Enjoy",
-      reason:
-        "Increasing the likelihood of adherence by finding enjoyable forms of exercise.",
+      milestone: "Find 3 types of exercise I like",
+      reason: "So I'll actually want to do them more often.",
     },
     {
-      milestone: "Schedule Exercise into Your Weekly Routine",
-      reason:
-        "Prioritizing exercise and making it a consistent part of the schedule.",
+      milestone: "Add exercise to my schedule each week",
+      reason: "Make time for it regularly.",
     },
     {
-      milestone: "Increase Daily Movement to 20 Minutes, 3 Times a Week",
-      reason:
-        "Gradually increasing the duration and frequency of physical activity.",
+      milestone: "Move for 20 minutes, 3 times a week",
+      reason: "Slowly doing more exercise each time.",
     },
     {
-      milestone: "Incorporate a Mix of Cardio and Strength Training",
-      reason: "Developing a more well-rounded fitness regimen.",
+      milestone: "Do both cardio and strength training",
+      reason: "To work out my whole body.",
     },
     {
-      milestone: "Find an Exercise Buddy or Join a Group",
-      reason: "Leveraging social support for motivation and accountability.",
+      milestone: "Find someone to exercise with or join a group",
+      reason: "Having friends helps me stay motivated.",
     },
     {
       milestone:
-        "Set a Specific, Achievable Fitness Goal (e.g., walk a 5k, do 10 push-ups)",
-      reason: "Providing a clear target to work towards and measure progress.",
+        "Set a fitness goal I can reach (like walking a 5k or doing 10 push-ups)",
+      reason: "Having a goal gives me something to aim for.",
     },
     {
-      milestone: "Consistently Exercise for 30 Minutes, 4 Times a Week",
-      reason: "Establishing a more regular and sustained exercise habit.",
+      milestone: "Exercise for 30 minutes, 4 times a week",
+      reason: "Making exercise a more regular thing.",
     },
     {
-      milestone: "Explore New Forms of Exercise Regularly",
-      reason:
-        "Maintaining interest and challenging the body in different ways.",
+      milestone: "Try new ways to exercise often",
+      reason: "To keep things fun and try different things.",
     },
     {
-      milestone: "Make Exercise a Consistent Habit and Lifestyle Choice",
-      reason:
-        "Integrating exercise seamlessly into daily life for long-term benefits.",
+      milestone: "Make exercise a regular part of my life",
+      reason: "To make it something I do out of habit for my health.",
     },
   ],
 };

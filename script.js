@@ -1,6 +1,7 @@
 import { Avatar } from "./avatar.js";
 import publicSpeakingSkillSet from "./skills/public-speaking.js";
 import exerciseSkillSet from "./skills/exercise.js";
+import virtuousSkillSet from "./skills/virtuous-action.js";
 import { rejections, confirmations } from "./answers.js";
 
 function shuffleArray(originalArray) {
@@ -140,7 +141,7 @@ function renderSkillTree({
   );
   container.appendChild(
     createElementWithProps("p", {
-      textContent: `Let's help Alyssa get there! Encourage her to do uncomfortable things to reach her goal. As you do, you will see her comfort zone growing!`,
+      textContent: `Let's help Alyssa get there! Right now she's not very confident in her skills, but you can encourage her to do uncomfortable things to reach her goal. As you do, you will see her comfort zone growing!`,
     }),
   );
 
@@ -245,7 +246,11 @@ function initialize() {
   const narrativeContainer = document.querySelector(".narrative");
   const selectElement = document.querySelector("#select-skillset");
   const avatar = new Avatar(document.querySelector(".avatar"));
-  const skillSets = [publicSpeakingSkillSet, exerciseSkillSet];
+  const skillSets = [
+    publicSpeakingSkillSet,
+    exerciseSkillSet,
+    virtuousSkillSet,
+  ];
 
   setHandlers({
     barContainer,

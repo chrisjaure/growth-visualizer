@@ -18,7 +18,7 @@ export const rejections = [
   "It'll be awkward.",
   "You don't have enough support.",
   "I don't think you can do it.",
-  "Wait until you're ready."
+  "Wait until you're ready.",
 ];
 
 export const confirmations = [
@@ -29,12 +29,15 @@ export const confirmations = [
   "You've faced challenges before.",
   "It won't be perfect, but you can do your best!",
   "You can ask for help if you need it.",
-  "This is one small step.",
+  "This is one small step forward.",
   "Try it and see what happens.",
   "You can adapt!",
-  "Training to improve your skills!",
+  "This is like training for a sport!",
   "This could open up new opportunities.",
   "Don't get stuck here!",
   "No one else can realize your potential.",
-  "The discomfort is temporary."
+  "The discomfort is temporary.",
+  "You have the skills to figure this out!",
+  "It's normal to feel a little awkward.",
+  "Discomfort is a sign that you're growing!",
 ];

@@ -1,55 +1,52 @@
 export default {
-  description: "be comfortable with public speaking",
+  description: "become a confident speaker",
   milestones: [
     {
-      milestone: "Practice in Front of a Mirror",
-      reason:
-        "Initial step to build comfort with one's own voice and presence.",
+      milestone: "Practice talking to myself in the mirror",
+      reason: "To get comfortable with how I sound and look when I speak.",
     },
     {
-      milestone: "Record and Review a Short Speech",
-      reason:
-        "Allows for self-assessment and identification of areas for improvement.",
+      milestone: "Record and watch a short speech I give",
+      reason: "To see what I can improve on when I talk.",
     },
     {
-      milestone: "Present to a Trusted Friend or Family Member",
-      reason:
-        "Gaining experience speaking to a supportive and familiar audience.",
+      milestone: "Present to a friend or family member I trust",
+      reason: "To practice speaking to people who will support me.",
     },
     {
-      milestone: "Join a Local Toastmasters Group",
+      milestone: "Join a group like Toastmasters",
       reason:
-        "Practicing in a structured environment with constructive feedback.",
+        "To practice speaking in a supportive environment with helpful feedback.",
     },
     {
       milestone:
-        "Give a Short Presentation at a Small Meeting (e.g., work team, club)",
-      reason: "Speaking in a professional setting with a known audience.",
-    },
-    {
-      milestone: "Lead a Workshop or Training Session",
+        "Give a short presentation in a small group (like a school club or team)",
       reason:
-        "Developing skills in guiding and instructing a group through speaking.",
+        "To practice speaking to a familiar but slightly more formal audience.",
     },
     {
-      milestone: "Present to a Small Audience at a Conference or Larger Event",
+      milestone: "Lead a workshop or training session for a group",
       reason:
-        "Speaking to a larger, less familiar audience, increasing exposure.",
+        "To develop skills in guiding and teaching others through speaking.",
     },
     {
-      milestone: "Give a Webinar or Online Presentation",
-      reason: "Adapting to speaking in a virtual environment.",
-    },
-    {
-      milestone: "Deliver a Keynote Speech at a Moderate-Sized Event",
+      milestone: "Present at a school event or a small conference",
       reason:
-        "Presenting as a more established speaker to a significant audience.",
+        "To gain experience speaking to a larger and less familiar audience.",
+    },
+    {
+      milestone: "Give a presentation online (webinar or video call)",
+      reason: "To get comfortable speaking in a virtual setting.",
+    },
+    {
+      milestone: "Deliver a main speech at a medium-sized event",
+      reason:
+        "To practice being the primary speaker for a significant audience.",
     },
     {
       milestone:
-        "Regularly Speak at Large Events or Become a Sought-After Speaker",
-      reason:
-        "Achieving mastery and recognition as a public speaking professional.",
+        "Regularly speak at large events",
+      reason: "To reach a high level of public speaking skill and recognition.",
     },
   ],
 };
