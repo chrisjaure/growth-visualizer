@@ -151,7 +151,10 @@ function renderSkillTree({
         const el = getSkillNode({
           skill,
           cancelText: cancelAnswers[index],
-          confirmText: approveAnswers[index],
+          confirmText:
+            index === skillSet.milestones.length - 1
+              ? "Look how far you've come!"
+              : approveAnswers[index],
           onCancel: () => {
             el.classList.add("rejected");
             triggerClick(index - 1);

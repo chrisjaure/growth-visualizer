@@ -399,3 +399,7 @@ a:hover {
 .complete .end {
   display: block;
 }
+
+.end select {
+  padding: 0.5em;
+}

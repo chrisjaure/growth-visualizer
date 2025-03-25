@@ -27,7 +27,7 @@ export const confirmations = [
   "You're capable of trying new things!",
   "It will be worth the effort.",
   "You've faced challenges before.",
-  "It won't be perfect, but you can still try your best!",
+  "It won't be perfect, but you can do your best!",
   "You can ask for help if you need it.",
   "This is one small step.",
   "Try it and see what happens.",
