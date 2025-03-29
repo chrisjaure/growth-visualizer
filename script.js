@@ -1,4 +1,4 @@
-import { Avatar } from "./avatar.js";
+import { Avatar } from "./avatars/avatar.js";
 import publicSpeakingSkillSet from "./skills/public-speaking.js";
 import exerciseSkillSet from "./skills/exercise.js";
 import virtuousSkillSet from "./skills/virtuous-action.js";
