@@ -41,3 +41,36 @@
   background-position: 207px -213px;
   background-size: 315px;
 }
+
+.avatar-sho {
+  background: url("./sho.png");
+  background-size: 1200%;
+}
+
+.avatar-sho.anxious {
+  background-position: -312px 0;
+}
+
+.avatar-sho.unhappy {
+  background-position: -792px 0;
+}
+
+.avatar-sho.neutral {
+  background-position: -72px 0;
+}
+
+.avatar-sho.embarrassed {
+  background-position: -792px 0;
+}
+
+.avatar-sho.happy {
+  background-position: -552px 0;
+}
+
+.avatar-sho.happier {
+  background-position: -552px 0;
+}
+
+.avatar-sho.happiest {
+  background-position: -1032px 0;
+}

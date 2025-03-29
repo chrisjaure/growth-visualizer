@@ -12,13 +12,17 @@ export class Avatar {
   mood = "unhappy";
   confidenceLevel = 0;
   flashTimer = null;
-  className = "avatar-girl";
+  className = "avatar-sho";
+  name = "Sho";
+  pronouns = ["his", "he", "him"];
 
-  constructor(element, className) {
+  constructor(element, className, name, pronouns) {
     this.element = element;
     this.setMood(this.mood);
     if (className) {
       this.className = className;
+      this.name = name;
+      this.pronouns = pronouns;
     }
     element.classList.add(this.className);
   }

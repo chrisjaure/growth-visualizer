@@ -123,6 +123,7 @@ function renderSkillTree({
   cancelAnswers,
   approveAnswers,
   skillSet,
+  avatar,
 }) {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
@@ -136,12 +137,12 @@ function renderSkillTree({
 
   container.appendChild(
     createElementWithProps("p", {
-      textContent: `Alyssa's goal is: ⭐ ${skillSet.milestones.at(-1).milestone} ⭐`,
+      textContent: `${avatar.name}'s goal is: ⭐ ${skillSet.milestones.at(-1).milestone} ⭐`,
     }),
   );
   container.appendChild(
     createElementWithProps("p", {
-      textContent: `Let's help Alyssa get there! Right now she's not very confident in her skills, but you can encourage her to do uncomfortable things to reach her goal. As you do, you will see her comfort zone growing!`,
+      textContent: `Let's help ${avatar.name} get there! Right now ${avatar.pronouns[1]}'s not very confident in ${avatar.pronouns[0]} skills, but you can encourage ${avatar.pronouns[2]} to do uncomfortable things to reach ${avatar.pronouns[0]} goal. As you do, you will see ${avatar.pronouns[0]} comfort zone growing!`,
     }),
   );
 
@@ -238,6 +239,17 @@ function initializeSkillSelect({ select, options, onChange }) {
   select.addEventListener("change", onChange);
 }
 
+function customizeForAvatar(avatar) {
+  document
+    .querySelectorAll(".avatar-name")
+    .forEach((el) => (el.textContent = avatar.name));
+  avatar.pronouns.forEach((pronoun, index) => {
+    document
+      .querySelectorAll(`.avatar-pronoun-${index + 1}`)
+      .forEach((el) => (el.textContent = pronoun));
+  });
+}
+
 function initialize() {
   const barContainer = document.querySelector(".bar-container");
   const actionElement = document.querySelector(".action");
@@ -245,7 +257,19 @@ function initialize() {
   const comfortZone = document.querySelector(".comfort-zone");
   const narrativeContainer = document.querySelector(".narrative");
   const selectElement = document.querySelector("#select-skillset");
-  const avatar = new Avatar(document.querySelector(".avatar"));
+  const avatarSho = new Avatar(
+    document.querySelector(".avatar"),
+    "avatar-sho",
+    "Sho",
+    ["his", "he", "him"],
+  );
+//  const avatarAlyssa = new Avatar(
+//    document.querySelector(".avatar"),
+//    "avatar-girl",
+//    "Alyssa",
+//    ["her", "she", "her"],
+//  );
+  const avatar = avatarSho;
   const skillSets = [
     publicSpeakingSkillSet,
     exerciseSkillSet,
@@ -265,7 +289,9 @@ function initialize() {
     cancelAnswers: shuffleArray(rejections),
     approveAnswers: shuffleArray(confirmations),
     skillSet: skillSets[0],
+    avatar,
   });
+  customizeForAvatar(avatar);
   initializeSkillSelect({
     select: selectElement,
     options: skillSets.map((option) => option.description),
