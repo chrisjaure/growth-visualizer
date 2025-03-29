@@ -12,10 +12,15 @@ export class Avatar {
   mood = "unhappy";
   confidenceLevel = 0;
   flashTimer = null;
+  className = "avatar-girl";
 
-  constructor(element) {
+  constructor(element, className) {
     this.element = element;
     this.setMood(this.mood);
+    if (className) {
+      this.className = className;
+    }
+    element.classList.add(this.className);
   }
 
   setMood(mood) {

@@ -1,40 +1,43 @@
 .avatar {
-  background: url("./girl.jpeg");
   width: 100px;
   height: 100px;
-  background-size: 315px;
 }
 
-.avatar.anxious {
+.avatar-girl {
+  background-size: 315px;
+  background: url("./girl.jpeg");
+}
+
+.avatar-girl.anxious {
   background-position: 0 -2px;
   background-size: 310px;
 }
 
-.avatar.neutral {
+.avatar-girl.neutral {
   background-position: -114px -106px;
 }
 
-.avatar.unhappy {
+.avatar-girl.unhappy {
   background-position: -2px -209px;
   background-size: 313px;
 }
 
-.avatar.happy {
+.avatar-girl.happy {
   background-position: 100px 0;
   background-size: 315px;
 }
 
-.avatar.happier {
+.avatar-girl.happier {
   background-position: 98px -106px;
   background-size: 314px;
 }
 
-.avatar.embarrassed {
+.avatar-girl.embarrassed {
   background-position: 101px 102px;
   background-size: 315px;
 }
 
-.avatar.happiest {
+.avatar-girl.happiest {
   background-position: 207px -213px;
   background-size: 315px;
 }
