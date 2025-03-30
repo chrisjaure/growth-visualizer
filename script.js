@@ -268,8 +268,8 @@ function initialize() {
     "Alyssa",
     ["her", "she", "her"],
   );
-  let avatar = avatarSho;
-  avatarAlyssa.hide();
+  let avatar = avatarAlyssa;
+  avatarSho.hide();
   const skillSets = [
     publicSpeakingSkillSet,
     exerciseSkillSet,
