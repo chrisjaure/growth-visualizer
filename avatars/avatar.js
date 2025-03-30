@@ -12,19 +12,14 @@ export class Avatar {
   mood = "unhappy";
   confidenceLevel = 0;
   flashTimer = null;
-  className = "avatar-sho";
   name = "Sho";
   pronouns = ["his", "he", "him"];
 
-  constructor(element, className, name, pronouns) {
+  constructor(element, name, pronouns) {
     this.element = element;
     this.setMood(this.mood);
-    if (className) {
-      this.className = className;
-      this.name = name;
-      this.pronouns = pronouns;
-    }
-    element.classList.add(this.className);
+    this.name = name;
+    this.pronouns = pronouns;
   }
 
   setMood(mood) {
@@ -67,5 +62,13 @@ export class Avatar {
     clearTimeout(this.flashTimer);
     this.flashTimer = null;
     this.element.classList.remove(...this.moods);
+  }
+
+  hide() {
+    this.element.style.display = "none";
+  }
+
+  show() {
+    this.element.style.display = "block";
   }
 }

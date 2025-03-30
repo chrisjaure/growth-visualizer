@@ -186,7 +186,7 @@ function setHandlers({
   actionElement,
   barElement,
   comfortZone,
-  avatar,
+  getAvatar,
 }) {
   barElement.addEventListener("click", (event) => {
     rippleEffect(barElement);
@@ -206,16 +206,16 @@ function setHandlers({
     void actionElement.offsetWidth; // Force reflow
     actionElement.classList.add("visible");
 
-    avatar.setConfidenceLevel(confidenceLevel);
+    getAvatar().setConfidenceLevel(confidenceLevel);
     if (
       event.clientX >= comfortRect.left &&
       event.clientX <= comfortRect.left + comfortRect.width
     ) {
       barContainer.classList.add("comfort-zone-clicked");
-      avatar.setMood("embarrassed");
+      getAvatar().setMood("embarrassed");
     } else {
       barContainer.classList.add("growth-zone-clicked");
-      avatar.flashAnxious();
+      getAvatar().flashAnxious();
     }
   });
 
@@ -256,20 +256,20 @@ function initialize() {
   const barElement = document.querySelector(".bar");
   const comfortZone = document.querySelector(".comfort-zone");
   const narrativeContainer = document.querySelector(".narrative");
-  const selectElement = document.querySelector("#select-skillset");
-  const avatarSho = new Avatar(
-    document.querySelector(".avatar"),
-    "avatar-sho",
-    "Sho",
-    ["his", "he", "him"],
+  const selectSkillElement = document.querySelector("#select-skillset");
+  const selectCharacterElement = document.querySelector("#character-select");
+  const avatarSho = new Avatar(document.querySelector(".avatar-sho"), "Sho", [
+    "his",
+    "he",
+    "him",
+  ]);
+  const avatarAlyssa = new Avatar(
+    document.querySelector(".avatar-girl"),
+    "Alyssa",
+    ["her", "she", "her"],
   );
-//  const avatarAlyssa = new Avatar(
-//    document.querySelector(".avatar"),
-//    "avatar-girl",
-//    "Alyssa",
-//    ["her", "she", "her"],
-//  );
-  const avatar = avatarSho;
+  let avatar = avatarSho;
+  avatarAlyssa.hide();
   const skillSets = [
     publicSpeakingSkillSet,
     exerciseSkillSet,
@@ -281,8 +281,26 @@ function initialize() {
     actionElement,
     barElement,
     comfortZone,
-    avatar,
-    selectElement,
+    getAvatar: () => avatar,
+  });
+  selectCharacterElement.addEventListener("change", () => {
+    if (selectCharacterElement.value === "Sho") {
+      avatar = avatarSho;
+      avatarSho.show();
+      avatarAlyssa.hide();
+    } else {
+      avatar = avatarAlyssa;
+      avatarSho.hide();
+      avatarAlyssa.show();
+    }
+    customizeForAvatar(avatar);
+    renderSkillTree({
+      container: narrativeContainer,
+      cancelAnswers: shuffleArray(rejections),
+      approveAnswers: shuffleArray(confirmations),
+      skillSet: skillSets[Number(selectSkillElement.value)],
+      avatar,
+    });
   });
   renderSkillTree({
     container: narrativeContainer,
@@ -293,7 +311,7 @@ function initialize() {
   });
   customizeForAvatar(avatar);
   initializeSkillSelect({
-    select: selectElement,
+    select: selectSkillElement,
     options: skillSets.map((option) => option.description),
     onChange: () => {
       document.body.classList.remove("complete");
@@ -304,7 +322,8 @@ function initialize() {
         container: narrativeContainer,
         cancelAnswers: shuffleArray(rejections),
         approveAnswers: shuffleArray(confirmations),
-        skillSet: skillSets[Number(selectElement.value)],
+        skillSet: skillSets[Number(selectSkillElement.value)],
+        avatar,
       });
     },
   });

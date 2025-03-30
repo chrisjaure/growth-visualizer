@@ -66,6 +66,15 @@ a:hover {
   text-decoration: underline;
 }
 
+select {
+  padding: 0.1em;
+  font-size: 16px;
+  line-height: 1.6;
+  border-radius: 2px;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
 .svg-diagram {
   display: block;
   width: 100%;
@@ -360,6 +369,3 @@ a:hover {
   display: block;
 }
 
-.end select {
-  padding: 0.5em;
-}
