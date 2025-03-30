@@ -4,8 +4,8 @@
 }
 
 .avatar-girl {
-  background-size: 315px;
   background: url("./girl.jpeg");
+  background-size: 315px;
 }
 
 .avatar-girl.anxious {
@@ -15,6 +15,7 @@
 
 .avatar-girl.neutral {
   background-position: -114px -106px;
+  background-size: 315px;
 }
 
 .avatar-girl.unhappy {
